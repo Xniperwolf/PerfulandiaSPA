@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 
 @RestController
-@RequestMapping("/Sucursal")
+@RequestMapping("api/v1/Sucursal")
 public class SucursalController {
     @Autowired
     private SucursalService sucursalService;
