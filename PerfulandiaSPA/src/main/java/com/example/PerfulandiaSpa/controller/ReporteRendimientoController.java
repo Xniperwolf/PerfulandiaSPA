@@ -10,7 +10,7 @@ import com.example.bibliotecaDuocBDD.model.ReporteRendimiento;
 import com.example.bibliotecaDuocBDD.services.ReporteRendimientoService;
 
 @RestController
-@RequestMapping("/ReporteRendimiento")
+@RequestMapping("/api/v1/ReporteRendimiento")
 public class ReporteRendimientoController {
     @Autowired
     private ReporteRendimientoService reporteRendimientoService;
