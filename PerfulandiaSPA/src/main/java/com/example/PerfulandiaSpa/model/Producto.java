@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @Entity
 @Table(name = "producto")
 @Data
@@ -16,6 +17,7 @@ import lombok.NoArgsConstructor;
 
 
 public class Producto {
+
     @Id
     public int id_producto;
     @Column(nullable= false,length = 50)

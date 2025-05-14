@@ -18,42 +18,44 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
 
-
-
-
-
-
 @RestController
 @RequestMapping("/api/v1/Producto")
 public class ProductoController {
+    
     @Autowired
     private ProductoService prodService;
 
+    // Obtener todos los productos
     @GetMapping()
-    public ResponseEntity <List<Producto>> listaProductos() {
-        List<Producto> productos =prodService.getProducto();
+    public ResponseEntity<List<Producto>> listaProductos() {
+        List<Producto> productos = prodService.getProducto();
         if (productos.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(productos);
     }
-    @PostMapping("path")
+
+    // Crear un nuevo producto
+    @PostMapping()
     public ResponseEntity<Producto> agregarProducto(@RequestBody Producto prod) {
-        Producto producto=prodService.saveProducto(prod);
+        Producto producto = prodService.saveProducto(prod);
         return ResponseEntity.status(HttpStatus.CREATED).body(producto);
     }
+
+    // Buscar un producto por ID
     @GetMapping("{id}")
     public ResponseEntity<Producto> buscarProducto(@PathVariable int id) {
         try {
-            Producto prod=prodService.getProductoById(id);
+            Producto prod = prodService.getProductoById(id);
             return ResponseEntity.ok(prod);
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
+
+    // Actualizar un producto existente
     @PutMapping("{id}")
     public ResponseEntity<Producto> actualizarProducto(@PathVariable int id, @RequestBody Producto prod) {
-        
         try {
             Producto producto = prodService.getProductoById(id);
             producto.setCategoria(prod.getCategoria());
@@ -63,20 +65,20 @@ public class ProductoController {
             producto.setStock_total(prod.getStock_total());
             prodService.saveProducto(producto);
             return ResponseEntity.ok(producto);
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
+
+    // Eliminar un producto
     @DeleteMapping("{id}")
-    public ResponseEntity<?> eliminarProducto(@PathVariable int id){
+    public ResponseEntity<String> eliminarProducto(@PathVariable int id) {
         try {
             prodService.deleteProducto(id);
-            return ResponseEntity.notFound().build();
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.ok("Producto eliminado exitosamente.");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Producto no encontrado con ID: " + id);
         }
     }
-    
-    
-
 }

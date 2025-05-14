@@ -19,7 +19,7 @@ public class PedidoService {
         return pedidoRepo.findAll();
     }
     public Pedido getPedidoById(int id){
-        return pedidoRepo.findById(id);
+        return pedidoRepo.findById(id).orElse(null);
     }
     public Pedido savePedido(Pedido ped){
         return pedidoRepo.save(ped);
