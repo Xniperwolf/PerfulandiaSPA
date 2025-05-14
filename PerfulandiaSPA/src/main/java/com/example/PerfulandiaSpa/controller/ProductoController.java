@@ -1,4 +1,4 @@
-package com.example.perfulandia.Controller;
+package com.example.PerfulandiaSpa.controller;
 
 import java.util.List;
 
@@ -8,8 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.perfulandia.Model.Producto;
-import com.example.perfulandia.Service.ProductoService;
+import com.example.PerfulandiaSpa.model.Producto;
+import com.example.PerfulandiaSpa.services.ProductoService;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;

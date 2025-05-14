@@ -1,4 +1,4 @@
-package com.example.perfulandia.Service;
+package com.example.PerfulandiaSpa.services;
 
 import java.util.List;
 
@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
-import com.example.perfulandia.Model.Sucursal;
-import com.example.perfulandia.Repository.SucursalRepositoryJpa;
+import com.example.PerfulandiaSpa.model.Sucursal;
+import com.example.PerfulandiaSpa.repository.SucursalRepositoryJpa;
 
 import jakarta.transaction.Transactional;
 

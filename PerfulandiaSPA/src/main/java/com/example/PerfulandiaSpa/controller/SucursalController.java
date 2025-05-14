@@ -1,9 +1,9 @@
-package com.example.perfulandia.Controller;
+package com.example.PerfulandiaSpa.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.perfulandia.Model.Sucursal;
-import com.example.perfulandia.Service.SucursalService;
+import com.example.PerfulandiaSpa.model.Sucursal;
+import com.example.PerfulandiaSpa.services.SucursalService;
 
 import java.util.List;
 

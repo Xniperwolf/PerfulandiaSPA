@@ -1,9 +1,9 @@
-package com.example.bibliotecaDuocBDD.repository;
+package com.example.PerfulandiaSpa.repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.bibliotecaDuocBDD.model.ReporteInventario;
+import com.example.PerfulandiaSpa.model.ReporteInventario;
 
 
 public class ReporteInventarioRepository {

@@ -1,4 +1,4 @@
-package com.example.perfulandia.Repository;
+package com.example.PerfulandiaSpa.repository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 
-import com.example.perfulandia.Model.Sucursal;
+import com.example.PerfulandiaSpa.model.Sucursal;
 
 @Repository
 public class SucursalRepository {

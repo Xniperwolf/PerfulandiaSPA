@@ -1,13 +1,13 @@
-package com.example.perfulandia.Service;
+package com.example.PerfulandiaSpa.services;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.perfulandia.Model.Producto;
+import com.example.PerfulandiaSpa.model.Producto;
 //import com.example.perfulandia.Repository.ProdictoRepository;
-import com.example.perfulandia.Repository.ProdictoRepositoryJpa;
+import com.example.PerfulandiaSpa.repository.ProdictoRepositoryJpa;
 
 import jakarta.transaction.Transactional;
 

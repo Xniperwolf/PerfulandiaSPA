@@ -1,4 +1,4 @@
-package com.example.bibliotecaDuocBDD.controller;
+package com.example.PerfulandiaSpa.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.bibliotecaDuocBDD.model.ReporteInventario;
-import com.example.bibliotecaDuocBDD.services.ReporteInventarioService;
+import com.example.PerfulandiaSpa.model.ReporteInventario;
+import com.example.PerfulandiaSpa.services.ReporteInventarioService;
 
 
 

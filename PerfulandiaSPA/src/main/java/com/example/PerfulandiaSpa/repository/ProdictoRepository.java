@@ -1,11 +1,11 @@
-package com.example.perfulandia.Repository;
+package com.example.PerfulandiaSpa.repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.example.perfulandia.Model.Producto;
+import com.example.PerfulandiaSpa.model.Producto;
 
 @Repository
 public class ProdictoRepository {

@@ -1,10 +1,10 @@
-package com.example.bibliotecaDuocBDD.repository.ReporteVentas;
+package com.example.PerfulandiaSpa.repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-import com.example.bibliotecaDuocBDD.model.ReporteVenta;
+import com.example.PerfulandiaSpa.model.ReporteVenta;
 
 public class ReporteVentaRepository {
     private List<ReporteVenta> listaRventas = new ArrayList<>();

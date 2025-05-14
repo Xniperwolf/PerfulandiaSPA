@@ -1,10 +1,10 @@
-package com.example.bibliotecaDuocBDD.repository;
+package com.example.PerfulandiaSpa.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.bibliotecaDuocBDD.model.ReporteInventario;
+import com.example.PerfulandiaSpa.model.ReporteInventario;
 
-public interface ReporteInventraioRepositoryJPA extends JpaRepository<ReporteInventario, Long> {
+public interface ReporteInventraioRepositoryJPA extends JpaRepository<ReporteInventario, String> {
 
     // Método para encontrar un perfume por su ID
     ReporteInventario findById(int id);

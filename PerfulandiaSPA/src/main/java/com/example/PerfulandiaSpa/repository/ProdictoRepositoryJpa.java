@@ -1,11 +1,11 @@
-package com.example.perfulandia.Repository;
+package com.example.PerfulandiaSpa.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.perfulandia.Model.Producto;
+import com.example.PerfulandiaSpa.model.Producto;
 
 
-public interface ProdictoRepositoryJpa extends JpaRepository<Producto, Long> {
+public interface ProdictoRepositoryJpa extends JpaRepository<Producto, Integer> {
 
     // Método para encontrar un perfume por su ID
     Producto findById(int id);

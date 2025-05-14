@@ -1,10 +1,10 @@
-package com.example.bibliotecaDuocBDD.services;
+package com.example.PerfulandiaSpa.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.bibliotecaDuocBDD.model.ReporteRendimiento;
-import com.example.bibliotecaDuocBDD.repository.ReporteRendimientoRepositoryJPA;
+import com.example.PerfulandiaSpa.model.ReporteRendimiento;
+import com.example.PerfulandiaSpa.repository.ReporteRendimientoRepositoryJPA;
 
 
 @Service

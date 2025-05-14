@@ -1,4 +1,4 @@
-package com.example.perfulandia.Model;
+package com.example.PerfulandiaSpa.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
