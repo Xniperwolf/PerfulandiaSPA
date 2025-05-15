@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.PerfulandiaSpa.model.Envios;
-// Make sure this import matches the actual package and class name of EnvioService
 import com.example.PerfulandiaSpa.services.EnvioService;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -57,6 +56,7 @@ public class EnvioController {
             envi.setEstado(env.getEstado());
             envi.setDestino(env.getDestino());
             envi.setOrigen(env.getOrigen());
+            envi.setProductos(env.getProductos());
             envi.setSucursal(env.getSucursal());
             envioService.updatEnvios(envi);
             return ResponseEntity.ok(envi);
