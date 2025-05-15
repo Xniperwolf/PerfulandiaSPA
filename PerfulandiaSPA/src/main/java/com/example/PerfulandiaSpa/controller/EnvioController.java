@@ -1,4 +1,4 @@
-package com.example.PerfulandiaSpa.Controller;
+package com.example.PerfulandiaSpa.controller;
 
 import java.util.List;
 
@@ -8,8 +8,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.Model.Envios;
-import com.example.demo.Service.EnvioService;
+import com.example.PerfulandiaSpa.model.Envios;
+// Make sure this import matches the actual package and class name of EnvioService
+import com.example.PerfulandiaSpa.services.EnvioService;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -55,7 +57,6 @@ public class EnvioController {
             envi.setEstado(env.getEstado());
             envi.setDestino(env.getDestino());
             envi.setOrigen(env.getOrigen());
-            envi.setListProducto(env.getListProducto());
             envi.setSucursal(env.getSucursal());
             envioService.updatEnvios(envi);
             return ResponseEntity.ok(envi);

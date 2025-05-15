@@ -1,11 +1,11 @@
-package com.example.PerfulandiaSpa.Repository;
+package com.example.PerfulandiaSpa.repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.example.demo.Model.Envios;
+import com.example.PerfulandiaSpa.model.Envios;
 
 
 @Repository
@@ -43,10 +43,10 @@ public class EnvioRepository {
         envi.setEstado(env.getEstado());
         envi.setOrigen(envi.getOrigen());
         envi.setSucursal(envi.getSucursal());
-        envi.setListProducto(env.getListProducto());
         listaEnvios.set(posicion, envi);
         return envi;
 
     }
+    
 
 }

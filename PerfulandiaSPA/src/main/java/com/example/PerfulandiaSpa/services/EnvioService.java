@@ -1,12 +1,12 @@
-package com.example.PerfulandiaSpa.Service;
+package com.example.PerfulandiaSpa.services;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.Model.Envios;
-import com.example.demo.Repository.EnvioRepositoryJpa;
+import com.example.PerfulandiaSpa.model.Envios;
+import com.example.PerfulandiaSpa.repository.EnvioRepositoryJpa;
 
 import jakarta.transaction.Transactional;
 

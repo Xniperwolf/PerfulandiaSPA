@@ -1,9 +1,7 @@
-package com.example.PerfulandiaSpa.Model;
+package com.example.PerfulandiaSpa.model;
 
 import java.util.List;
 
-import com.example.gestionenvios.model.Producto; // Asegúrate de que la ruta a Producto sea correcta
-import com.example.gestionenvios.model.Sucursal; // Asegúrate de que la ruta a Sucursal sea correcta
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -39,4 +37,6 @@ public class Envios {
 
     @Column(nullable = false)
     private String destino;
+
+    // Removed redundant listProducto field and its getter/setter.
 }
