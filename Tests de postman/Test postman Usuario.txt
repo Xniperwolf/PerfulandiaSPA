@@ -1,0 +1,73 @@
+# Postman Test Cases for UsuarioController
+
+## 1. Crear un nuevo usuario
+- **Método:** POST
+- **URL:** http://localhost:8080/api/v1/Usuario
+- **Headers:** Content-Type: application/json
+- **Body (JSON):**
+    ```json
+    {
+        "nombre": "Juan",
+        "apellido": "Pérez",
+        "username": "juanp",
+        "email": "juanp@example.com",
+        "password": "123456"
+    }
+    ```
+- **Tests:**
+    - Respuesta 200 OK y body contiene el usuario creado
+
+---
+
+## 2. Obtener todos los usuarios
+- **Método:** GET
+- **URL:** http://localhost:8080/api/v1/Usuario
+- **Headers:** Accept: application/json
+- **Tests:**
+    - Respuesta 200 OK y body es un array de usuarios
+
+---
+
+## 3. Obtener un usuario por ID (existente)
+- **Método:** GET
+- **URL:** http://localhost:8080/api/v1/Usuario/1
+- **Headers:** Accept: application/json
+- **Tests:**
+    - Respuesta 200 OK y body contiene el usuario con id=1
+
+---
+
+## 4. Obtener un usuario por ID (no existente)
+- **Método:** GET
+- **URL:** http://localhost:8080/api/v1/Usuario/9999
+- **Headers:** Accept: application/json
+- **Tests:**
+    - Respuesta 200 OK y body es vacío o null
+
+---
+
+## 5. Obtener un usuario por username
+- **Método:** GET
+- **URL:** http://localhost:8080/api/v1/Usuario/username/juanp
+- **Headers:** Accept: application/json
+- **Tests:**
+    - Respuesta 200 OK y body contiene el usuario con username "juanp"
+
+---
+
+## 6. Obtener un usuario por email
+- **Método:** GET
+- **URL:** http://localhost:8080/api/v1/Usuario/email/juanp@example.com
+- **Headers:** Accept: application/json
+- **Tests:**
+    - Respuesta 200 OK y body contiene el usuario con ese email
+
+---
+
+## 7. Eliminar un usuario existente
+- **Método:** DELETE
+- **URL:** http://localhost:8080/api/v1/Usuario/1
+- **Tests:**
+    - Respuesta 200 OK y body contiene "Usuario eliminado"
+
+---

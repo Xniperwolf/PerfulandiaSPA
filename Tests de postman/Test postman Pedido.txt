@@ -1,0 +1,89 @@
+**Plan (pseudocode):**
+1. Analizar los endpoints de PedidoController:
+    - GET /api/v1/Pedidos (listar todos)
+    - POST /api/v1/Pedidos (crear)
+    - GET /api/v1/Pedidos/{id} (obtener por id)
+    - PUT /api/v1/Pedidos/{id} (actualizar)
+2. Para cada endpoint, definir:
+    - Método, URL, headers, body (si aplica)
+    - Pruebas esperadas (status, body)
+    - Casos de éxito y error (por ejemplo, id inexistente)
+3. Usar ejemplos de datos compatibles con el modelo Pedido.
+
+---
+
+# Postman Test Cases for PedidoController
+
+## 1. Obtener todos los pedidos
+- **Método:** GET  
+- **URL:** http://localhost:8080/api/v1/Pedidos  
+- **Headers:** Accept: application/json  
+- **Tests:**  
+     - Respuesta 200 OK y body es un array (puede estar vacío o tener objetos Pedido)  
+     - Si no hay pedidos, respuesta 404 Not Found  
+
+---
+
+## 2. Crear un pedido
+- **Método:** POST  
+- **URL:** http://localhost:8080/api/v1/Pedidos  
+- **Headers:** Content-Type: application/json  
+- **Body (JSON):**
+     ```json
+     {
+          "id": 1,
+          "productos": [],
+          "fechaCreacion": 20240601,
+          "estado": "pendiente"
+     }
+     ```
+- **Tests:**  
+     - Respuesta 201 Created y body contiene el objeto Pedido creado  
+
+---
+
+## 3. Obtener un pedido por ID (existente)
+- **Método:** GET  
+- **URL:** http://localhost:8080/api/v1/Pedidos/1  
+- **Headers:** Accept: application/json  
+- **Tests:**  
+     - Respuesta 200 OK y body contiene el objeto Pedido con id=1  
+
+---
+
+## 4. Obtener un pedido por ID (no existente)
+- **Método:** GET  
+- **URL:** http://localhost:8080/api/v1/Pedidos/9999  
+- **Headers:** Accept: application/json  
+- **Tests:**  
+     - Respuesta 404 Not Found  
+
+---
+
+## 5. Actualizar un pedido existente
+- **Método:** PUT  
+- **URL:** http://localhost:8080/api/v1/Pedidos/1  
+- **Headers:** Content-Type: application/json  
+- **Body (JSON):**
+     ```json
+     {
+          "id": 1,
+          "productos": [],
+          "fechaCreacion": 20240601,
+          "estado": "enviado"
+     }
+     ```
+- **Tests:**  
+     - Respuesta 200 OK y body contiene el objeto Pedido actualizado  
+
+---
+
+## 6. Actualizar un pedido no existente
+- **Método:** PUT  
+- **URL:** http://localhost:8080/api/v1/Pedidos/9999  
+- **Headers:** Content-Type: application/json  
+- **Body (JSON):** (igual que arriba, pero con id inexistente)  
+- **Tests:**  
+     - Respuesta 404 Not Found  
+
+---

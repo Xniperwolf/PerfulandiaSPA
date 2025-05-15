@@ -1,0 +1,48 @@
+# Postman Test Cases for ReporteInventarioController
+
+## 1. Crear un reporte de inventario
+- **Método:** POST
+- **URL:** http://localhost:8080/api/v1/ReporteInventario
+- **Headers:** Content-Type: application/json
+- **Body (JSON):**
+    ```json
+    {
+        "idReporte": "REP-001",
+        "producto": {
+            "id_producto": 1,
+            "nombre": "ProductoX",
+            "precio": 5000,
+            "stock_total": 10,
+            "categoria": "Fragancia",
+            "estado": "disponible"
+        },
+        "cantidadDisponible": 100,
+        "precioCompra": 3000,
+        "precioVenta": 5000,
+        "estado": "disponible"
+    }
+    ```
+- **Tests:**
+    - Respuesta 201 Created y body contiene el objeto ReporteInventario creado
+
+---
+
+## 2. Crear un reporte de inventario con datos inválidos
+- **Método:** POST
+- **URL:** http://localhost:8080/api/v1/ReporteInventario
+- **Headers:** Content-Type: application/json
+- **Body (JSON):**
+    ```json
+    {
+        "idReporte": "",
+        "producto": null,
+        "cantidadDisponible": -1,
+        "precioCompra": -100,
+        "precioVenta": -200,
+        "estado": ""
+    }
+    ```
+- **Tests:**
+    - Respuesta 500 Internal Server Error o 400 Bad Request (según validaciones)
+
+---
