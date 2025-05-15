@@ -8,6 +8,9 @@ import org.springframework.stereotype.Repository;
 import com.example.PerfulandiaSpa.model.Envios;
 
 
+
+
+
 @Repository
 public class EnvioRepository {
     public List<Envios> listaEnvios= new ArrayList<>();
@@ -43,10 +46,10 @@ public class EnvioRepository {
         envi.setEstado(env.getEstado());
         envi.setOrigen(envi.getOrigen());
         envi.setSucursal(envi.getSucursal());
+        envi.setProductos(env.getProductos());
         listaEnvios.set(posicion, envi);
         return envi;
 
     }
-    
 
 }
