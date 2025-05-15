@@ -1,6 +1,7 @@
 package com.example.PerfulandiaSpa.model;
 
 import java.util.List;
+import com.example.PerfulandiaSpa.model.Producto;
 
 
 import jakarta.persistence.*;
@@ -37,6 +38,4 @@ public class Envios {
 
     @Column(nullable = false)
     private String destino;
-
-    // Removed redundant listProducto field and its getter/setter.
 }
