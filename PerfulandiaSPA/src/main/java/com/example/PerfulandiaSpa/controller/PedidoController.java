@@ -1,73 +1,67 @@
 package com.example.PerfulandiaSpa.controller;
 
-import org.springframework.web.bind.annotation.RestController;
-
 import com.example.PerfulandiaSpa.model.Pedido;
 import com.example.PerfulandiaSpa.services.PedidoService;
-
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.*;
 
-
-
-
-
+import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/Pedidos")
+@RequestMapping("/api/v1/pedidos")
 public class PedidoController {
-    @Autowired
-    private PedidoService pediService;
 
-    @GetMapping()
-    public ResponseEntity<List<Pedido>> getPedido() {
-        List<Pedido> pedidos = pediService.getPedidos();
+    @Autowired
+    private PedidoService pedidoService;
+
+    @GetMapping
+    public ResponseEntity<List<Pedido>> getAllPedidos() {
+        List<Pedido> pedidos = pedidoService.getAllPedidos();
         if (pedidos.isEmpty()) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(pedidos);
     }
-    @PostMapping()
-    public ResponseEntity<Pedido> postPedido(@RequestBody Pedido ped) {
-        Pedido pedi=pediService.savePedido(ped);
-        return ResponseEntity.status(HttpStatus.CREATED).body(pedi);
-    }
-    @GetMapping("{id}")
-    public ResponseEntity<Pedido> buscarPedido(@PathVariable int id) {
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Pedido> getPedidoById(@PathVariable int id) {
         try {
-            Pedido pedi= pediService.getPedidoById(id);
-            return ResponseEntity.ok(pedi);
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
+            Pedido pedido = pedidoService.getPedidoById(id);
+            return ResponseEntity.ok(pedido);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
-    @PutMapping("{id}")
-    public ResponseEntity<Pedido> updatePedido(@PathVariable int id, @RequestBody Pedido ped) {
-        try {
-            Pedido pedi= pediService.getPedidoById(id);
-            pedi.setEstado(ped.getEstado());
-            pedi.setFechaCreacion(ped.getFechaCreacion());
-            pedi.setProductos(ped.getProductos());
-            pediService.savePedido(pedi);
-            return ResponseEntity.ok(pedi);
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
-        
-        
+
+    @PostMapping
+    public ResponseEntity<Pedido> createPedido(@RequestBody Pedido pedido) {
+        Pedido saved = pedidoService.savePedido(pedido);
+        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 
-    
+    @PutMapping("/{id}")
+    public ResponseEntity<Pedido> updatePedido(@PathVariable int id, @RequestBody Pedido pedido) {
+        try {
+            Pedido existing = pedidoService.getPedidoById(id);
+            existing.setEstado(pedido.getEstado());
+            existing.setFechaCreacion(pedido.getFechaCreacion());
+            existing.setProductos(pedido.getProductos());
+            Pedido updated = pedidoService.savePedido(existing);
+            return ResponseEntity.ok(updated);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
 
-    
-    
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deletePedido(@PathVariable int id) {
+        try {
+            pedidoService.deletePedido(id);
+            return ResponseEntity.ok("Pedido eliminado exitosamente.");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Pedido no encontrado con ID: " + id);
+        }
+    }
 }

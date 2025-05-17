@@ -2,7 +2,6 @@ package com.example.PerfulandiaSpa.controller;
 
 import com.example.PerfulandiaSpa.model.Venta;
 import com.example.PerfulandiaSpa.services.VentaService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,27 +15,38 @@ public class VentaController {
     @Autowired
     private VentaService ventaService;
 
-    // Obtener todas las ventas
     @GetMapping
-    public List<Venta> getAllVentas() {
-        return ventaService.getAllVentas();
+    public ResponseEntity<List<Venta>> getAllVentas() {
+        List<Venta> ventas = ventaService.getAllVentas();
+        if (ventas.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(ventas);
     }
 
-    // Obtener venta por ID
     @GetMapping("/{id}")
     public ResponseEntity<Venta> getVentaById(@PathVariable Long id) {
-        return ventaService.getVentaById(id);
+        try {
+            Venta venta = ventaService.getVentaById(id);
+            return ResponseEntity.ok(venta);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
-    // Crear nueva venta
     @PostMapping
-    public Venta createVenta(@RequestBody Venta venta) {
-        return ventaService.createVenta(venta);
+    public ResponseEntity<Venta> createVenta(@RequestBody Venta venta) {
+        Venta saved = ventaService.saveVenta(venta);
+        return ResponseEntity.status(201).body(saved);
     }
 
-    // Eliminar venta
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteVenta(@PathVariable Long id) {
-        return ventaService.deleteVenta(id);
+    public ResponseEntity<String> deleteVenta(@PathVariable Long id) {
+        try {
+            ventaService.deleteVenta(id);
+            return ResponseEntity.ok("Venta eliminada exitosamente.");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(404).body("Venta no encontrada con ID: " + id);
+        }
     }
 }

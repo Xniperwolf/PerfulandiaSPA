@@ -1,31 +1,34 @@
 package com.example.PerfulandiaSpa.services;
 
-import java.util.List;
-
+import com.example.PerfulandiaSpa.model.Envio;
+import com.example.PerfulandiaSpa.repository.EnvioRepositoryJpa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.example.PerfulandiaSpa.model.Envios;
-import com.example.PerfulandiaSpa.repository.EnvioRepositoryJpa;
-
 import jakarta.transaction.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional
 public class EnvioService {
+
     @Autowired
     private EnvioRepositoryJpa envioRepository;
-    public List<Envios>getEnvios() {
+
+    public List<Envio> getAllEnvios() {
         return envioRepository.findAll();
     }
-    public Envios getPedidoByID(int id){
-        return envioRepository.findById(id);
-    }
-    public Envios saveEnvios(Envios envio){
-        return envioRepository.save(envio);
-    }
-    public Envios updatEnvios(Envios envi){
-        return envioRepository.save(envi);
+
+    public Envio getEnvioById(int id) {
+        return envioRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Envio no encontrado con ID: " + id));
     }
 
+    public Envio saveEnvio(Envio envio) {
+        return envioRepository.save(envio);
+    }
+
+    public void deleteEnvio(int id) {
+        envioRepository.deleteById(id);
+    }
 }

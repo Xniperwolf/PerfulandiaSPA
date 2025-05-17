@@ -1,10 +1,10 @@
 package com.example.PerfulandiaSpa.repository;
 
+import java.util.stream.IntStream;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import com.example.PerfulandiaSpa.model.ReporteRendimiento;
 
-public interface ReporteRendimientoRepositoryJPA extends 
-JpaRepository<ReporteRendimiento, String> {
-    // JpaRepository already provides methods like save(), findById(), and deleteById()
-    // No need to declare findById or deleteById
+public interface ReporteRendimientoRepositoryJpa extends JpaRepository<ReporteRendimiento, String> {
+    // Métodos personalizados si los necesitas
 }

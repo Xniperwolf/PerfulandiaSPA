@@ -1,55 +1,40 @@
 package com.example.PerfulandiaSpa.repository;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
-
 import com.example.PerfulandiaSpa.model.Provedor;
 
 @Repository
 public class ProvedorRepository {
-    private List<Provedor> ListaProvedor=new ArrayList<>();
+    private final List<Provedor> listaProvedores = new ArrayList<>();
 
-    public Provedor BuscarporId(int id){
-        for (Provedor provedor : ListaProvedor) {
-            if (provedor.getId()==id) {
-                return provedor;
-            }
-        }
-        return null;
+    public Optional<Provedor> buscarPorId(int id) {
+        return listaProvedores.stream()
+                .filter(prov -> prov.getId() == id)
+                .findFirst();
     }
 
-    public List<Provedor> listaProvedors(){
-        return ListaProvedor;
+    public List<Provedor> listarProvedores() {
+        return Collections.unmodifiableList(listaProvedores);
     }
 
-    public Provedor actualizar(Provedor prov){
-        int posicion=0;
-        for (int i = 0; i < ListaProvedor.size(); i++) {
-            if (ListaProvedor.get(i).getId()==prov.getId()) {
-                posicion=1;
-            }
-        }
-        Provedor prove= new Provedor();
-        prove.setContacto(prov.getContacto());
-        prove.setDireccion(prov.getDireccion());
-        prove.setEmail(prov.getEmail());
-        prove.setNombre(prov.getNombre());
-        prove.setTelefono(prov.getTelefono());
-        ListaProvedor.set(posicion, prove);
-        return prove;
-    }
-    public Provedor agregaProvedor(Provedor prov){
-        ListaProvedor.add(prov);
-        return prov; 
+    public Provedor guardar(Provedor prov) {
+        eliminar(prov.getId());
+        listaProvedores.add(prov);
+        return prov;
     }
 
-    public void eliminar(int id){
-        Provedor prov=BuscarporId(id);
-        if (prov!=null) {
-            ListaProvedor.remove(prov);
-        }
-        
+    public Provedor actualizar(Provedor prov) {
+        eliminar(prov.getId());
+        listaProvedores.add(prov);
+        return prov;
+    }
+
+    public void eliminar(int id) {
+        listaProvedores.removeIf(prov -> prov.getId() == id);
     }
 }

@@ -1,46 +1,41 @@
 package com.example.PerfulandiaSpa.repository;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
-
-
 import com.example.PerfulandiaSpa.model.Sucursal;
 
 @Repository
 public class SucursalRepository {
 
-    public Sucursal BuscarPorId(int id){
-        for (Sucursal sucursal : ListaSucursal) {
-            if (sucursal.getId()==id) {
-                return sucursal;
-            }
-        }
-        return null;
+    private final List<Sucursal> listaSucursal = new ArrayList<>();
+
+    public Optional<Sucursal> buscarPorId(Long id) {
+        return listaSucursal.stream()
+                .filter(sucursal -> sucursal.getId().equals(id))
+                .findFirst();
     }
 
-    public List<Sucursal> listarSucursales(){
-        return ListaSucursal;
+    public List<Sucursal> listarSucursales() {
+        return Collections.unmodifiableList(listaSucursal);
     }
 
-     private List<Sucursal> ListaSucursal=new ArrayList<>();
+    public Sucursal guardar(Sucursal sucursal) {
+        eliminar(sucursal.getId());
+        listaSucursal.add(sucursal);
+        return sucursal;
+    }
 
-        public Sucursal actualizar(Sucursal suc){
-        int id=0;
-        int posicion=0;
-        for (int i = 0; i < ListaSucursal.size(); i++) {
-            if (ListaSucursal.get(i).getId()==suc.getId()) {
-                id=suc.getId();
-                posicion=1;
-            }
-        }
-        Sucursal sucu=new Sucursal();
-        sucu.setId(id);
-        sucu.setDireccion(suc.getDireccion());
-        sucu.setHoraApertura(suc.getHoraApertura());
-        sucu.setHoraCierre(suc.getHoraCierre());
-        ListaSucursal.set(posicion,sucu);
-        return sucu;
+    public Sucursal actualizar(Sucursal sucursal) {
+        eliminar(sucursal.getId());
+        listaSucursal.add(sucursal);
+        return sucursal;
+    }
+
+    public void eliminar(Long id) {
+        listaSucursal.removeIf(sucursal -> sucursal.getId().equals(id));
     }
 }

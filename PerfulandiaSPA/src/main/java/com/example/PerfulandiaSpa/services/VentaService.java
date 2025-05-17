@@ -1,43 +1,35 @@
+// filepath: [VentaService.java](http://_vscodecontentref_/2)
 package com.example.PerfulandiaSpa.services;
 
 import com.example.PerfulandiaSpa.model.Venta;
-import com.example.PerfulandiaSpa.repository.VentaRepository;
+import com.example.PerfulandiaSpa.repository.VentaRepositoryJpa;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import jakarta.transaction.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
+@Transactional
 public class VentaService {
 
     @Autowired
-    private VentaRepository ventaRepository;
+    private VentaRepositoryJpa ventaRepository;
 
-    // Obtener todas las ventas
     public List<Venta> getAllVentas() {
         return ventaRepository.findAll();
     }
 
-    // Obtener venta por ID
-    public ResponseEntity<Venta> getVentaById(Long id) {
-        Optional<Venta> venta = ventaRepository.findById(id);
-        return venta.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+    public Venta getVentaById(Long id) {
+        return ventaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Venta no encontrada con ID: " + id));
     }
 
-    // Crear una nueva venta
-    public Venta createVenta(Venta venta) {
+    public Venta saveVenta(Venta venta) {
         return ventaRepository.save(venta);
     }
 
-    // Eliminar una venta
-    public ResponseEntity<Void> deleteVenta(Long id) {
-        if (ventaRepository.existsById(id)) {
-            ventaRepository.deleteById(id);
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.notFound().build();
+    public void deleteVenta(Long id) {
+        ventaRepository.deleteById(id);
     }
 }

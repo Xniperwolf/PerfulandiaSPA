@@ -1,55 +1,47 @@
 package com.example.PerfulandiaSpa.repository;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.example.PerfulandiaSpa.model.Envio;
 import org.springframework.stereotype.Repository;
 
-import com.example.PerfulandiaSpa.model.Envios;
-
-
-
-
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class EnvioRepository {
-    public List<Envios> listaEnvios= new ArrayList<>();
+    private final List<Envio> listaEnvios = new ArrayList<>();
 
-    public Envios guardarEnvios(Envios envio){
+    public Envio guardarEnvio(Envio envio) {
+        // Si el envío ya existe, actualízalo
+        this.eliminarPorId(envio.getId());
         listaEnvios.add(envio);
         return envio;
     }
-    public List<Envios> verEnvios(){
-        return listaEnvios;
+
+    public List<Envio> verEnvios() {
+        return Collections.unmodifiableList(listaEnvios);
     }
-    public Envios BuscarPorID(int id){
-        for (Envios envios : listaEnvios) {
-            if (envios.getId()==id) {
-                return envios;
-            }
+
+    public Optional<Envio> buscarPorId(long id) {
+        return listaEnvios.stream()
+                .filter(envio -> envio.getId() == id)
+                .findFirst();
+    }
+
+    public boolean eliminarPorId(long id) {
+        return listaEnvios.removeIf(envio -> envio.getId() == id);
+    }
+
+    public Envio actualizarEnvio(Envio envioActualizado) {
+        Optional<Envio> existente = buscarPorId(envioActualizado.getId());
+        if (existente.isPresent()) {
+            int idx = listaEnvios.indexOf(existente.get());
+            listaEnvios.set(idx, envioActualizado);
+            return envioActualizado;
         }
-        return null;
+        // Si no existe, lo agrega
+        listaEnvios.add(envioActualizado);
+        return envioActualizado;
     }
-
-    public Envios actualizarEnvios(Envios env){
-        int id=0;
-        int posicion=0;
-        for (int i = 0; i < listaEnvios.size(); i++) {
-            if (listaEnvios.get(i).getId()==env.getId()) {
-                id=env.getId();
-                posicion=1;
-            }
-        }
-        Envios envi= new Envios();
-        envi.setId(id);
-        envi.setDestino(env.getDestino());
-        envi.setEstado(env.getEstado());
-        envi.setOrigen(envi.getOrigen());
-        envi.setSucursal(envi.getSucursal());
-        envi.setProductos(env.getProductos());
-        listaEnvios.set(posicion, envi);
-        return envi;
-
-    }
-
 }

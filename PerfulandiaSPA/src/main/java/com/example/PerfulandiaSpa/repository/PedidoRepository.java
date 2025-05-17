@@ -1,58 +1,43 @@
 package com.example.PerfulandiaSpa.repository;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
-
 import com.example.PerfulandiaSpa.model.Pedido;
 
 @Repository
 public class PedidoRepository {
-    private List<Pedido> pedidos = new ArrayList<>();
+    private final List<Pedido> pedidos = new ArrayList<>();
 
-    // Método para guardar un nuevo pedido
     public Pedido guardar(Pedido ped) {
+        eliminarPorId(ped.getId());
         pedidos.add(ped);
         return ped;
     }
 
-    // Método para ver todos los pedidos
     public List<Pedido> verPedidos() {
-        return pedidos;
+        return Collections.unmodifiableList(pedidos);
     }
 
-    // Método para buscar un pedido por su ID
-    public Pedido buscarPorId(int id) {
-        for (Pedido pedido : pedidos) {
-            if (pedido.getId() == id) {
-                return pedido;
-            }
-        }
-        return null;
+    public Optional<Pedido> buscarPorId(int id) {
+        return pedidos.stream().filter(p -> p.getId() == id).findFirst();
     }
 
-    // Método para actualizar un pedido existente
+    public boolean eliminarPorId(int id) {
+        return pedidos.removeIf(p -> p.getId() == id);
+    }
+
     public Pedido actualizarPedido(Pedido ped) {
-        int posicion = -1;
-        for (int i = 0; i < pedidos.size(); i++) {
-            if (pedidos.get(i).getId() == ped.getId()) {
-                posicion = i; // Guardamos la posición correcta
-                break;
-            }
+        Optional<Pedido> existente = buscarPorId(ped.getId());
+        if (existente.isPresent()) {
+            int idx = pedidos.indexOf(existente.get());
+            pedidos.set(idx, ped);
+            return ped;
         }
-
-        // Si no se encontró el pedido, retornar null o lanzar una excepción
-        if (posicion == -1) {
-            return null; // Pedido no encontrado
-        }
-
-        // Actualizamos el pedido
-        Pedido pedidoExistente = pedidos.get(posicion);
-        pedidoExistente.setEstado(ped.getEstado());
-        pedidoExistente.setFechaCreacion(ped.getFechaCreacion());
-        pedidoExistente.setProductos(ped.getProductos());
-
-        return pedidoExistente;
+        pedidos.add(ped);
+        return ped;
     }
 }

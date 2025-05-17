@@ -1,48 +1,66 @@
 package com.example.PerfulandiaSpa.controller;
 
-import org.springframework.web.bind.annotation.RestController;
-
 import com.example.PerfulandiaSpa.model.Sucursal;
 import com.example.PerfulandiaSpa.services.SucursalService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PathVariable;
-
-
-
 @RestController
-@RequestMapping("api/v1/Sucursal")
+@RequestMapping("/api/v1/sucursales")
 public class SucursalController {
+
     @Autowired
     private SucursalService sucursalService;
-    @GetMapping()
-    public ResponseEntity <List<Sucursal>> listarSucursal() {
-        List<Sucursal> sucursales=sucursalService.getSucursal();
-        if(sucursales.isEmpty()){
+
+    @GetMapping
+    public ResponseEntity<List<Sucursal>> getAllSucursales() {
+        List<Sucursal> sucursales = sucursalService.getAllSucursales();
+        if (sucursales.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(sucursales);
     }
 
-    @PutMapping("{id}")
-    public ResponseEntity <Sucursal>actualizarSucursal(@PathVariable int id, @RequestBody Sucursal sucu) {
+    @GetMapping("/{id}")
+    public ResponseEntity<Sucursal> getSucursalById(@PathVariable Long id) {
         try {
-            Sucursal suc=sucursalService.getSucursalById(id);
-            suc.setDireccion(sucu.getDireccion());
-            suc.setHoraApertura(sucu.getHoraApertura());
-            suc.setHoraCierre(sucu.getHoraCierre());
-            sucursalService.saveSucursal(suc);
-            return ResponseEntity.ok(suc);
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
+            Sucursal sucursal = sucursalService.getSucursalById(id);
+            return ResponseEntity.ok(sucursal);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
-    
+
+    @PostMapping
+    public ResponseEntity<Sucursal> createSucursal(@RequestBody Sucursal sucursal) {
+        Sucursal saved = sucursalService.saveSucursal(sucursal);
+        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Sucursal> updateSucursal(@PathVariable Long id, @RequestBody Sucursal sucursal) {
+        try {
+            Sucursal existing = sucursalService.getSucursalById(id);
+            existing.setNombre(sucursal.getNombre());
+            existing.setDireccion(sucursal.getDireccion());
+            Sucursal updated = sucursalService.saveSucursal(existing);
+            return ResponseEntity.ok(updated);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteSucursal(@PathVariable Long id) {
+        try {
+            sucursalService.deleteSucursal(id);
+            return ResponseEntity.ok("Sucursal eliminada exitosamente.");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Sucursal no encontrada con ID: " + id);
+        }
+    }
 }

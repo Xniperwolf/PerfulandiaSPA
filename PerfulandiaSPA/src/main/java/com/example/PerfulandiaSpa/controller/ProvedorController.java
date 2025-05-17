@@ -1,77 +1,69 @@
 package com.example.PerfulandiaSpa.controller;
 
-import java.util.List;
-
+import com.example.PerfulandiaSpa.model.Provedor;
+import com.example.PerfulandiaSpa.services.ProvedorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.example.PerfulandiaSpa.model.Provedor;
-import com.example.PerfulandiaSpa.services.ProvedorService;
+import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/Provedor")
+@RequestMapping("/api/v1/provedores")
 public class ProvedorController {
-    @Autowired
-    private ProvedorService provService;
 
-    @GetMapping()
-    public ResponseEntity<List<Provedor>> listaProvedor(){
-        List<Provedor> provedores= provService.getProvedor();
+    @Autowired
+    private ProvedorService provedorService;
+
+    @GetMapping
+    public ResponseEntity<List<Provedor>> getAllProvedores() {
+        List<Provedor> provedores = provedorService.getAllProvedores();
         if (provedores.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(provedores);
     }
 
-    @PostMapping()
-    public ResponseEntity<Provedor> agregarProvedor(@RequestBody Provedor provedor ){
-        Provedor prove=provService.saveProvedor(provedor);
-        return ResponseEntity.status(HttpStatus.CREATED).body(prove);
-    }
-
-    @GetMapping("{id}")
-    public ResponseEntity<Provedor> buscarProvedor(@PathVariable int id){
+    @GetMapping("/{id}")
+    public ResponseEntity<Provedor> getProvedorById(@PathVariable int id) {
         try {
-            Provedor prov=provService.getProvedorById(id);
-            return ResponseEntity.ok(prov);
-
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
+            Provedor provedor = provedorService.getProvedorById(id);
+            return ResponseEntity.ok(provedor);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
-    
-    @PutMapping("{id}")
-    public ResponseEntity<Provedor> actualizarProvedor(@PathVariable int id, @RequestBody Provedor prov){
+
+    @PostMapping
+    public ResponseEntity<Provedor> createProvedor(@RequestBody Provedor provedor) {
+        Provedor saved = provedorService.saveProvedor(provedor);
+        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Provedor> updateProvedor(@PathVariable int id, @RequestBody Provedor provedor) {
         try {
-            Provedor prove=provService.updateProvedor(prov);
-            
-            prove.setContacto(prov.getContacto());
-            prove.setDireccion(prov.getDireccion());
-            prove.setEmail(prov.getEmail());
-            prove.setNombre(prov.getNombre());
-            prove.setTelefono(prov.getTelefono());
-            provService.saveProvedor(prove);
-            return ResponseEntity.ok(prove); 
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
+            Provedor existing = provedorService.getProvedorById(id);
+            existing.setNombre(provedor.getNombre());
+            existing.setDireccion(provedor.getDireccion());
+            existing.setEmail(provedor.getEmail());
+            existing.setTelefono(provedor.getTelefono());
+            existing.setContacto(provedor.getContacto());
+            Provedor updated = provedorService.saveProvedor(existing);
+            return ResponseEntity.ok(updated);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
-    @DeleteMapping()
-    public ResponseEntity<String> eliminarProvedor(@RequestBody Provedor prove){
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteProvedor(@PathVariable int id) {
         try {
-            provService.deleteProvedor(prove);
-            return ResponseEntity.ok("Provedor eliminado....");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Provedor no encontrado");
+            provedorService.deleteProvedor(id);
+            return ResponseEntity.ok("Provedor eliminado exitosamente.");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Provedor no encontrado con ID: " + id);
         }
     }
 }
