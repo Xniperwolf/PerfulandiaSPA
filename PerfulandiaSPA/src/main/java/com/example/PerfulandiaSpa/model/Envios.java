@@ -1,7 +1,6 @@
 package com.example.PerfulandiaSpa.model;
 
 import java.util.List;
-import com.example.PerfulandiaSpa.model.Producto;
 
 
 import jakarta.persistence.*;

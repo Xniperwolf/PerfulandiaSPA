@@ -9,6 +9,6 @@ import com.example.PerfulandiaSpa.model.Envios;
 
 
 
-public interface EnvioRepositoryJpa extends JpaRepository<Envios,Long>{
+public interface EnvioRepositoryJpa extends JpaRepository<Envios, Integer> {
     public Envios findById(int id);
 }

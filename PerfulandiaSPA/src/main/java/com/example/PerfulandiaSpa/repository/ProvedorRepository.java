@@ -25,11 +25,9 @@ public class ProvedorRepository {
     }
 
     public Provedor actualizar(Provedor prov){
-        int id=0;
         int posicion=0;
         for (int i = 0; i < ListaProvedor.size(); i++) {
             if (ListaProvedor.get(i).getId()==prov.getId()) {
-                id=prov.getId();
                 posicion=1;
             }
         }
