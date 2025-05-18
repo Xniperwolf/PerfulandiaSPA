@@ -22,7 +22,7 @@ public class ReporteVentaService {
         return reporteVentaRepository.findAll();
     }
 
-    public void deleteReporteVenta(int id) {
+    public void deleteReporteVenta(String id) {
         reporteVentaRepository.deleteById(id);
     }
 }

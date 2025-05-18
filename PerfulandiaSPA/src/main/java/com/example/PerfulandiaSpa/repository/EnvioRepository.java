@@ -12,29 +12,29 @@ import java.util.Optional;
 public class EnvioRepository {
     private final List<Envio> listaEnvios = new ArrayList<>();
 
-    public Envio guardarEnvio(Envio envio) {
+    public Envio saveEnvio(Envio envio) {
         // Si el envío ya existe, actualízalo
-        this.eliminarPorId(envio.getId());
+        this.deleteById(envio.getId());
         listaEnvios.add(envio);
         return envio;
     }
 
-    public List<Envio> verEnvios() {
+    public List<Envio> listEnvios() {
         return Collections.unmodifiableList(listaEnvios);
     }
 
-    public Optional<Envio> buscarPorId(long id) {
+    public Optional<Envio> searchById(long id) {
         return listaEnvios.stream()
                 .filter(envio -> envio.getId() == id)
                 .findFirst();
     }
 
-    public boolean eliminarPorId(long id) {
+    public boolean deleteById(long id) {
         return listaEnvios.removeIf(envio -> envio.getId() == id);
     }
 
-    public Envio actualizarEnvio(Envio envioActualizado) {
-        Optional<Envio> existente = buscarPorId(envioActualizado.getId());
+    public Envio updateEnvio(Envio envioActualizado) {
+        Optional<Envio> existente = searchById(envioActualizado.getId());
         if (existente.isPresent()) {
             int idx = listaEnvios.indexOf(existente.get());
             listaEnvios.set(idx, envioActualizado);
