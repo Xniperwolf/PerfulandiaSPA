@@ -37,4 +37,7 @@ public class ProductoRepository {
     public void eliminar(int id) {
         listaProductos.removeIf(producto -> producto.getId_producto() == id);
     }
+
+
+    
 }

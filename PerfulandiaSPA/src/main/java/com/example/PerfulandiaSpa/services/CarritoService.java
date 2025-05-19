@@ -14,8 +14,9 @@ public class CarritoService {
     @Autowired
     private CarritoRepository carritoRepository;
 
-    public Carrito agregarItem(Long usuarioId, ItemCarrito item) {
-        Carrito carrito = carritoRepository.findByUsuarioId(usuarioId).orElse(new Carrito(usuarioId, new java.util.ArrayList<>()));
+    public Carrito agregarItem(Long Id, Long usuarioId, ItemCarrito item) {
+        Carrito carrito = carritoRepository.findByUsuarioId(usuarioId).orElse(new Carrito());
+        carrito.setId(Id);;
         carrito.getItems().add(item);
         return carritoRepository.save(carrito);
     }
