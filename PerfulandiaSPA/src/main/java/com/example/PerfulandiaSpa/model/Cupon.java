@@ -16,7 +16,7 @@ public class Cupon {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    private String codigo;
+    private String codigo_cupon;
 
     @Column(nullable = false)
     private double descuento; // porcentaje o monto fijo
