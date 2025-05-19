@@ -30,8 +30,9 @@ public class Envio {
     @OneToMany(mappedBy = "envio", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EnvioDetalle> detalles;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 20)
+  
+    @ManyToOne
+    @JoinColumn(name = "estado_envio_id")
     private EstadoEnvio estado;
 
     @Column(nullable = false)
