@@ -1,3 +1,4 @@
+// filepath: [UsuarioService.java](http://_vscodecontentref_/1)
 package com.example.PerfulandiaSpa.services;
 
 import com.example.PerfulandiaSpa.model.Usuario;
@@ -12,35 +13,30 @@ import java.util.Optional;
 public class UsuarioService {
 
     @Autowired
-    private UsuarioRepository userRepository;
+    private UsuarioRepository usuarioRepository;
 
-    // Guardar un nuevo usuario
-    public Usuario saveUser(Usuario user) {
-        return userRepository.save(user);
+    public Usuario saveUsuario(Usuario usuario) {
+        return usuarioRepository.save(usuario);
     }
 
-    // Obtener todos los usuarios
-    public List<Usuario> getAllUsers() {
-        return userRepository.findAll();
+    public List<Usuario> getAllUsuarios() {
+        return usuarioRepository.findAll();
     }
 
-    // Obtener un usuario por ID
-    public Optional<Usuario> getUserById(Long id) {
-        return userRepository.findById(id);
+    public Usuario getUsuarioById(Long id) {
+        return usuarioRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado con ID: " + id));
     }
 
-    // Buscar un usuario por nombre de usuario
-    public Optional<Usuario> getUserByUsername(String username) {
-        return userRepository.findByUsername(username);
+    public Optional<Usuario> getUsuarioByUsername(String username) {
+        return usuarioRepository.findByUsername(username);
     }
 
-    // Buscar un usuario por correo electrónico
-    public Optional<Usuario> getUserByEmail(String email) {
-        return userRepository.findByEmail(email);
+    public Optional<Usuario> getUsuarioByEmail(String email) {
+        return usuarioRepository.findByEmail(email);
     }
 
-    // Eliminar un usuario
-    public void deleteUser(Long id) {
-        userRepository.deleteById(id);
+    public void deleteUsuario(Long id) {
+        usuarioRepository.deleteById(id);
     }
 }

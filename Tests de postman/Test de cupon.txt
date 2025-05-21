@@ -1,0 +1,21 @@
+### Crear cupón (POST)
+POST http://localhost:8080/api/v1/cupones
+Content-Type: application/json
+
+{
+   "id":1,
+  "codigoCupon": "DESCUENTO10",
+  "descuento": 10.0,
+  "activo": true
+}
+/*Status 200*/
+### Obtener todos los cupones (GET)
+GET http://localhost:8080/api/v1/cupones
+
+
+/*Status 200*/
+### Obtener cupón por ID (GET)
+GET http://localhost:8080/api/v1/cupones/1
+
+### Eliminar cupón (DELETE)
+DELETE http://localhost:8080/api/v1/cupones/1

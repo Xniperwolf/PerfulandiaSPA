@@ -3,52 +3,65 @@ package com.example.PerfulandiaSpa.controller;
 import com.example.PerfulandiaSpa.model.Usuario;
 import com.example.PerfulandiaSpa.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/v1/usuarios")
 public class UsuarioController {
 
     @Autowired
-    private UsuarioService userService;
+    private UsuarioService usuarioService;
 
-    // Crear un nuevo usuario
     @PostMapping
-    public Usuario createUser(@RequestBody Usuario user) {
-        return userService.saveUser(user);
+    public ResponseEntity<Usuario> createUser(@RequestBody Usuario user) {
+        Usuario saved = usuarioService.saveUsuario(user);
+        return ResponseEntity.status(201).body(saved);
     }
 
-    // Obtener todos los usuarios
     @GetMapping
-    public List<Usuario> getAllUsers() {
-        return userService.getAllUsers();
+    public ResponseEntity<List<Usuario>> getAllUsers() {
+        List<Usuario> usuarios = usuarioService.getAllUsuarios();
+        if (usuarios.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(usuarios);
     }
 
-    // Obtener un usuario por ID
     @GetMapping("/{id}")
-    public Optional<Usuario> getUserById(@PathVariable Long id) {
-        return userService.getUserById(id);
+    public ResponseEntity<Usuario> getUserById(@PathVariable Long id) {
+        try {
+            Usuario usuario = usuarioService.getUsuarioById(id);
+            return ResponseEntity.ok(usuario);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
-    // Obtener un usuario por nombre de usuario (username)
     @GetMapping("/username/{username}")
-    public Optional<Usuario> getUserByUsername(@PathVariable String username) {
-        return userService.getUserByUsername(username);
+    public ResponseEntity<Usuario> getUserByUsername(@PathVariable String username) {
+        Optional<Usuario> usuario = usuarioService.getUsuarioByUsername(username);
+        return usuario.map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
-    // Obtener un usuario por correo electrónico (email)
     @GetMapping("/email/{email}")
-    public Optional<Usuario> getUserByEmail(@PathVariable String email) {
-        return userService.getUserByEmail(email);
+    public ResponseEntity<Usuario> getUserByEmail(@PathVariable String email) {
+        Optional<Usuario> usuario = usuarioService.getUsuarioByEmail(email);
+        return usuario.map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
-    // Eliminar un usuario
     @DeleteMapping("/{id}")
-    public String deleteUser(@PathVariable Long id) {
-        userService.deleteUser(id);
-        return "Usuario eliminado";
+    public ResponseEntity<String> deleteUser(@PathVariable Long id) {
+        try {
+            usuarioService.deleteUsuario(id);
+            return ResponseEntity.ok("Usuario eliminado");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(404).body("Usuario no encontrado con ID: " + id);
+        }
     }
 }

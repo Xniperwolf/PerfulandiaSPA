@@ -1,0 +1,30 @@
+### Crear usuario (POST)
+POST http://localhost:8080/api/v1/usuarios
+Content-Type: application/json
+
+{
+  "rol": "cliente",
+  "email": "usuario@correo.com",
+  "password": "123456",
+  "username": "usuario1"
+}
+
+### Obtener todos los usuarios (GET)
+GET http://localhost:8080/api/v1/usuarios
+
+### Obtener usuario por ID (GET)
+GET http://localhost:8080/api/v1/usuarios/1
+
+### Actualizar usuario (PUT)
+PUT http://localhost:8080/api/v1/usuarios/1
+Content-Type: application/json
+
+{
+  "rol": "cliente",
+  "email": "usuario@correo.com",
+  "password": "nuevo123",
+  "username": "usuario1"
+}
+
+### Eliminar usuario (DELETE)
+DELETE http://localhost:8080/api/v1/usuarios/1

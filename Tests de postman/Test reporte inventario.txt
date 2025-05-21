@@ -1,0 +1,14 @@
+### Crear reporte de inventario (POST)
+POST http://localhost:8080/api/v1/reporte-inventario
+Content-Type: application/json
+
+{
+  "cantidadDisponible": 100,
+  "estado": "bueno",
+  "precioCompra": 500,
+  "precioVenta": 800,
+  "producto": { "id_producto": 1 }
+}
+
+### Obtener todos los reportes de inventario (GET)
+GET http://localhost:8080/api/v1/reporte-inventario

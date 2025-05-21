@@ -28,7 +28,6 @@ public class Usuario {
     @Column(nullable = false, unique = true)
     private String email; // Correo electrónico único
 
-    // Otros campos que necesites (por ejemplo, nombre completo, roles, etc.)
     @Column(nullable  = false)
         private String Rol;
 }

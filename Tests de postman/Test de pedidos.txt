@@ -1,0 +1,43 @@
+### Crear pedido (POST)
+POST http://localhost:8080/api/v1/pedidos
+Content-Type: application/json
+
+{
+  "estado": "pendiente",
+  "fechaCreacion": 20240521,
+  "usuario": { "id": 1 },
+  "sucursal": { "id": 1 },
+  "productos": [
+    { "id_producto": 1 },
+    { "id_producto": 2 }
+  ]
+}
+
+### Obtener todos los pedidos (GET)
+GET http://localhost:8080/api/v1/pedidos
+
+### Obtener pedido por ID (GET)
+GET http://localhost:8080/api/v1/pedidos/1
+
+### Obtener pedidos por usuario (GET)
+GET http://localhost:8080/api/v1/pedidos/usuario/1
+
+### Obtener pedidos por sucursal (GET)
+GET http://localhost:8080/api/v1/pedidos/sucursal/1
+
+### Actualizar pedido (PUT)
+PUT http://localhost:8080/api/v1/pedidos/1
+Content-Type: application/json
+
+{
+  "estado": "enviado",
+  "fechaCreacion": 20240521,
+  "usuario": { "id": 1 },
+  "sucursal": { "id": 1 },
+  "productos": [
+    { "id_producto": 1 }
+  ]
+}
+
+### Eliminar pedido (DELETE)
+DELETE http://localhost:8080/api/v1/pedidos/1

@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "venta")
@@ -26,4 +27,16 @@ public class Venta {
 
     @Column(nullable = false)
     private String metodoPago;
+
+    @ManyToMany
+    @JoinTable(
+        name = "venta_cupon",
+        joinColumns = @JoinColumn(name = "venta_id"),
+        inverseJoinColumns = @JoinColumn(name = "cupon_id")
+    )
+    private List<Cupon> cupones;
+
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
 }

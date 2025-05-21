@@ -1,0 +1,19 @@
+### Crear reporte de rendimiento (POST)
+POST http://localhost:8080/api/v1/reporte-rendimiento
+Content-Type: application/json
+
+{
+  "empleados": 10,
+  "ganancias": 50000.0,
+  "metasCumplidas": 8,
+  "nombreSucursal": "Sucursal Centro",
+  "periodo": "2024-05",
+  "ventasTotales": 120000.0,
+  "sucursal": { "id": 1 }
+}
+
+### Obtener todos los reportes de rendimiento (GET)
+GET http://localhost:8080/api/v1/reporte-rendimiento
+
+### Obtener reportes de rendimiento por sucursal (GET)
+GET http://localhost:8080/api/v1/reporte-rendimiento/sucursal/1
