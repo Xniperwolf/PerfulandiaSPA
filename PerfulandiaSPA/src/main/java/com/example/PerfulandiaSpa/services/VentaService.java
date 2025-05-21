@@ -1,7 +1,7 @@
 // filepath: [VentaService.java](http://_vscodecontentref_/2)
 package com.example.PerfulandiaSpa.services;
 
-import com.example.PerfulandiaSpa.model.Usuario;
+
 import com.example.PerfulandiaSpa.model.Venta;
 import com.example.PerfulandiaSpa.repository.VentaRepository;
 import com.example.PerfulandiaSpa.repository.VentaRepositoryJpa;
