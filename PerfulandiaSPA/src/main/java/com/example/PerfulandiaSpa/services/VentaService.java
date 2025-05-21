@@ -1,7 +1,9 @@
 // filepath: [VentaService.java](http://_vscodecontentref_/2)
 package com.example.PerfulandiaSpa.services;
 
+import com.example.PerfulandiaSpa.model.Usuario;
 import com.example.PerfulandiaSpa.model.Venta;
+import com.example.PerfulandiaSpa.repository.VentaRepository;
 import com.example.PerfulandiaSpa.repository.VentaRepositoryJpa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,22 +16,31 @@ import java.util.List;
 public class VentaService {
 
     @Autowired
-    private VentaRepositoryJpa ventaRepository;
+    private VentaRepositoryJpa ventaRepositoryJpa;
+    private VentaRepository ventaRepository;
 
     public List<Venta> getAllVentas() {
-        return ventaRepository.findAll();
+        return ventaRepositoryJpa.findAll();
     }
 
     public Venta getVentaById(Long id) {
-        return ventaRepository.findById(id)
+        return ventaRepositoryJpa.findById(id)
                 .orElseThrow(() -> new RuntimeException("Venta no encontrada con ID: " + id));
     }
 
     public Venta saveVenta(Venta venta) {
-        return ventaRepository.save(venta);
+        return ventaRepositoryJpa.save(venta);
     }
 
     public void deleteVenta(Long id) {
-        ventaRepository.deleteById(id);
+        ventaRepositoryJpa.deleteById(id);
+    }
+
+    public List<Venta> getVentasByUsuarioId(Venta venta) {
+        List<Venta> ventas = ventaRepository.findByUsuario(venta.getUsuario());
+        if (ventas == null || ventas.isEmpty()) {
+            throw new RuntimeException("Usuario no encontrado");
+        }
+        return ventas;
     }
 }

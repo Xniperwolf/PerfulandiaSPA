@@ -24,6 +24,8 @@ public class VentaController {
         return ResponseEntity.ok(ventas);
     }
 
+    
+
     @GetMapping("/{id}")
     public ResponseEntity<Venta> getVentaById(@PathVariable Long id) {
         try {
@@ -48,5 +50,14 @@ public class VentaController {
         } catch (RuntimeException e) {
             return ResponseEntity.status(404).body("Venta no encontrada con ID: " + id);
         }
+    }
+
+        @GetMapping("/usuario/{usuarioId}")
+    public ResponseEntity<List<Venta>> getVentasByUsuario(@PathVariable Venta venta) {
+        List<Venta> ventas = ventaService.getVentasByUsuarioId(venta);
+        if (ventas.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(ventas);
     }
 }

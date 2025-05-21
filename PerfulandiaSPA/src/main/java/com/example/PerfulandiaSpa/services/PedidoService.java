@@ -1,6 +1,9 @@
 package com.example.PerfulandiaSpa.services;
 
 import com.example.PerfulandiaSpa.model.Pedido;
+import com.example.PerfulandiaSpa.model.Sucursal;
+import com.example.PerfulandiaSpa.model.Usuario;
+import com.example.PerfulandiaSpa.repository.PedidoRepository;
 import com.example.PerfulandiaSpa.repository.PedidoRepositoryJpa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,22 +16,32 @@ import java.util.List;
 public class PedidoService {
 
     @Autowired
-    private PedidoRepositoryJpa pedidoRepository;
-
+    private PedidoRepositoryJpa pedidoRepositoryjpa;
+    private PedidoRepository pedidoRepository;
     public List<Pedido> getAllPedidos() {
-        return pedidoRepository.findAll();
+        return pedidoRepositoryjpa.findAll();
     }
 
     public Pedido getPedidoById(int id) {
-        return pedidoRepository.findById(id)
+        return pedidoRepositoryjpa.findById(id)
                 .orElseThrow(() -> new RuntimeException("Pedido no encontrado con ID: " + id));
     }
 
     public Pedido savePedido(Pedido pedido) {
-        return pedidoRepository.save(pedido);
+        return pedidoRepositoryjpa.save(pedido);
     }
 
     public void deletePedido(int id) {
-        pedidoRepository.deleteById(id);
+        pedidoRepositoryjpa.deleteById(id);
     }
+
+    public List<Pedido> getPedidosByUsuario(Usuario usuario) {
+        return pedidoRepository.findByUsuario(usuario);
+    }
+
+    public List<Pedido> getPedidosBySucursal(Sucursal sucursal) {
+        return pedidoRepository.findBySucursal(sucursal);
+    }
+
+    
 }

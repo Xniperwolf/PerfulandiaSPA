@@ -12,7 +12,7 @@ public class CarritoRepository {
     private final Map<Long, Carrito> carritos = new HashMap<>();
 
     public Carrito save(Carrito carrito) {
-        carritos.put(carrito.getUsuarioId(), carrito);
+        carritos.put(carrito.getUsuario().getId(), carrito);
         return carrito;
     }
 
@@ -20,7 +20,7 @@ public class CarritoRepository {
         return Optional.ofNullable(carritos.get(usuarioId));
     }
 
-    public void delete(Long usuarioId) {
+    public void deleteByUsuarioId(Long usuarioId) {
         carritos.remove(usuarioId);
     }
 }

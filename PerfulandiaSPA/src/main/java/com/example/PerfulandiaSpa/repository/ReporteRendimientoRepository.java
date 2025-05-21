@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Optional;
 
 import com.example.PerfulandiaSpa.model.ReporteRendimiento;
+import com.example.PerfulandiaSpa.model.Sucursal;
+
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -21,13 +23,23 @@ public class ReporteRendimientoRepository {
         return Collections.unmodifiableList(listaRrendimiento);
     }
 
-    public Optional<ReporteRendimiento> buscarPorId(String id) {
+    public Optional<ReporteRendimiento> buscarPorId(long id) {
         return listaRrendimiento.stream()
-                .filter(rep -> rep.getIdSucursal() == id)
+                .filter(rep -> rep.getId() == id)
                 .findFirst();
     }
 
-    public void eliminar(String id) {
-        listaRrendimiento.removeIf(rep -> rep.getIdSucursal() == id);
+    public void eliminar(long id) {
+        listaRrendimiento.removeIf(rep -> rep.getSucursal().getId() == id);
     }
+
+     public List<ReporteRendimiento> findBySucursal(Sucursal sucursal) {
+         List<ReporteRendimiento> resultados = new ArrayList<>();
+         for (ReporteRendimiento rep : listaRrendimiento) {
+             if (rep.getSucursal().equals(sucursal)) {
+                 resultados.add(rep);
+             }
+         }
+         return resultados;
+     }
 }

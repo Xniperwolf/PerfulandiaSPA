@@ -7,6 +7,8 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 import com.example.PerfulandiaSpa.model.Pedido;
+import com.example.PerfulandiaSpa.model.Sucursal;
+import com.example.PerfulandiaSpa.model.Usuario;
 
 @Repository
 public class PedidoRepository {
@@ -40,4 +42,25 @@ public class PedidoRepository {
         pedidos.add(ped);
         return ped;
     }
+
+    public List<Pedido> findByUsuario(Usuario usuario) {
+        List<Pedido> result = new ArrayList<>();
+        for (Pedido p : pedidos) {
+            if (p.getUsuario() != null && p.getUsuario().equals(usuario)) {
+                result.add(p);
+            }
+        }
+        return result;
+    }
+
+    public List<Pedido> findBySucursal(Sucursal sucursal) {
+        List<Pedido> result = new ArrayList<>();
+        for (Pedido p : pedidos) {
+            if (p.getSucursal() != null && p.getSucursal().equals(sucursal)) {
+                result.add(p);
+            }
+        }
+        return result;
+    }
+
 }

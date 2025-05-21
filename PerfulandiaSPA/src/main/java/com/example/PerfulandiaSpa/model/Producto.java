@@ -3,6 +3,8 @@ package com.example.PerfulandiaSpa.model;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,6 +32,8 @@ public class Producto {
     public String categoria;
     @Column(nullable=false,length=50)
     public String estado;
-
+    @ManyToOne
+    @JoinColumn(name = "proveedor_id")
+    private Provedor proveedor;
 
 }

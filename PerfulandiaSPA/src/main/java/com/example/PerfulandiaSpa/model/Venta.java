@@ -35,4 +35,8 @@ public class Venta {
         inverseJoinColumns = @JoinColumn(name = "cupon_id")
     )
     private List<Cupon> cupones;
+
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
 }

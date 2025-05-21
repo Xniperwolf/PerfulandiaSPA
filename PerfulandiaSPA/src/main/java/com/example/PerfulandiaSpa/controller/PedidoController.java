@@ -35,6 +35,25 @@ public class PedidoController {
         }
     }
 
+    @GetMapping("/usuario/{usuarioId}")
+    public ResponseEntity<List<Pedido>> getPedidosByUsuario(@PathVariable Pedido pedido) {
+        List<Pedido> pedidos = pedidoService.getPedidosByUsuario(pedido.getUsuario());
+        if (pedidos.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(pedidos);
+    }
+
+    // Buscar pedidos por sucursal
+    @GetMapping("/sucursal/{sucursalId}")
+    public ResponseEntity<List<Pedido>> getPedidosBySucursal(@PathVariable Pedido pedido) {
+        List<Pedido> pedidos = pedidoService.getPedidosBySucursal(pedido.getSucursal());
+        if (pedidos.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(pedidos);
+    }
+
     @PostMapping
     public ResponseEntity<Pedido> createPedido(@RequestBody Pedido pedido) {
         Pedido saved = pedidoService.savePedido(pedido);

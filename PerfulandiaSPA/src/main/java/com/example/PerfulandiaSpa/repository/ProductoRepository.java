@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 import com.example.PerfulandiaSpa.model.Producto;
+import com.example.PerfulandiaSpa.model.Provedor;
 
 @Repository
 public class ProductoRepository {
@@ -38,6 +39,14 @@ public class ProductoRepository {
         listaProductos.removeIf(producto -> producto.getId_producto() == id);
     }
 
-
+    public List<Producto> findByProveedor(Provedor proveedor) {
+        List<Producto> productosPorProveedor = new ArrayList<>();
+        for (Producto producto : listaProductos) {
+            if (producto.getProveedor() != null && producto.getProveedor().equals(proveedor)) {
+                productosPorProveedor.add(producto);
+            }
+        }
+        return productosPorProveedor;
+    }
     
 }

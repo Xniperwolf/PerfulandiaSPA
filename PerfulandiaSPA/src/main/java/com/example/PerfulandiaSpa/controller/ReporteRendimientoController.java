@@ -1,6 +1,7 @@
 package com.example.PerfulandiaSpa.controller;
 
 import com.example.PerfulandiaSpa.model.ReporteRendimiento;
+import com.example.PerfulandiaSpa.model.Sucursal;
 import com.example.PerfulandiaSpa.services.ReporteRendimientoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,6 +30,16 @@ public class ReporteRendimientoController {
     @GetMapping
     public ResponseEntity<List<ReporteRendimiento>> getAllReportesRendimiento() {
         List<ReporteRendimiento> reportes = reporteRendimientoService.getAllReportesRendimiento();
+        if (reportes.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(reportes);
+    }
+    @GetMapping("/sucursal/{sucursalId}")
+    public ResponseEntity<List<ReporteRendimiento>> getReportesBySucursal(@PathVariable Long sucursalId) {
+        Sucursal sucursal = new Sucursal();
+        sucursal.setId(sucursalId);
+        List<ReporteRendimiento> reportes = reporteRendimientoService.getReportesBySucursal(sucursal);
         if (reportes.isEmpty()) {
             return ResponseEntity.noContent().build();
         }

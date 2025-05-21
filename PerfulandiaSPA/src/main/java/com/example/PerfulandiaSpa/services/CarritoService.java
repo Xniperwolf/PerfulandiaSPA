@@ -14,11 +14,11 @@ public class CarritoService {
     @Autowired
     private CarritoRepository carritoRepository;
 
-    public Carrito agregarItem(Long Id, Long usuarioId, ItemCarrito item) {
-        Carrito carrito = carritoRepository.findByUsuarioId(usuarioId).orElse(new Carrito());
-        carrito.setId(Id);;
-        carrito.getItems().add(item);
-        return carritoRepository.save(carrito);
+    public Carrito agregarItem(Carrito carrito, ItemCarrito item) {
+        Optional<Carrito> carritoOpt = carritoRepository.findByUsuarioId(carrito.getUsuario().getId());
+        Carrito carritoExistente = carritoOpt.orElse(new Carrito());
+        carritoExistente.getItems().add(item);
+        return carritoRepository.save(carritoExistente);
     }
 
     public Optional<Carrito> obtenerCarrito(Long usuarioId) {
@@ -26,6 +26,7 @@ public class CarritoService {
     }
 
     public void vaciarCarrito(Long usuarioId) {
-        carritoRepository.delete(usuarioId);
+        Optional<Carrito> carritoOpt = carritoRepository.findByUsuarioId(usuarioId);
+        carritoOpt.ifPresent(carrito -> carritoRepository.deleteByUsuarioId(carrito.getId()));
     }
 }

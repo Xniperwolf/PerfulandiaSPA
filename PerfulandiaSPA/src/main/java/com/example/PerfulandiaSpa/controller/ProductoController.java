@@ -1,6 +1,7 @@
 package com.example.PerfulandiaSpa.controller;
 
 import com.example.PerfulandiaSpa.model.Producto;
+import com.example.PerfulandiaSpa.model.Provedor;
 import com.example.PerfulandiaSpa.services.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -65,5 +66,16 @@ public class ProductoController {
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Producto no encontrado con ID: " + id);
         }
+    }
+
+        @GetMapping("/proveedor/{proveedorId}")
+    public ResponseEntity<List<Producto>> getProductosByProveedor(@PathVariable int proveedorId) {
+        Provedor provedor = new Provedor();
+        provedor.setId(proveedorId);
+        List<Producto> productos = productoService.getProductosByProveedor(provedor);
+        if (productos.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(productos);
     }
 }
