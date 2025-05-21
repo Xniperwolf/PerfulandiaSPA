@@ -3,7 +3,6 @@ package com.example.PerfulandiaSpa.repository;
 import com.example.PerfulandiaSpa.model.Usuario;
 import com.example.PerfulandiaSpa.model.Venta;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
