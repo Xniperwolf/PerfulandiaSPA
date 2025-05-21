@@ -16,6 +16,7 @@ public class CarritoController {
 
     @Autowired
     private CarritoService carritoService;
+    @Autowired
     private UsuarioService usuarioService;
 
     @PostMapping("/{usuarioId}/agregar")

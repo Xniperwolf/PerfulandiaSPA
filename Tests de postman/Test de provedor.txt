@@ -1,0 +1,32 @@
+### Crear proveedor (POST)
+POST http://localhost:8080/api/v1/provedores
+Content-Type: application/json
+
+{
+  "nombre": "Proveedor Fragancias",
+  "direccion": "Calle Aroma 123",
+  "email": "contacto@fragancias.com",
+  "telefono": "555-1234",
+  "contacto": "Juan Pérez"
+}
+
+### Obtener todos los proveedores (GET)
+GET http://localhost:8080/api/v1/provedores
+
+### Obtener proveedor por ID (GET)
+GET http://localhost:8080/api/v1/provedores/1
+
+### Actualizar proveedor (PUT)
+PUT http://localhost:8080/api/v1/provedores/1
+Content-Type: application/json
+
+{
+  "nombre": "Proveedor Fragancias Actualizado",
+  "direccion": "Calle Nueva 456",
+  "email": "nuevo@fragancias.com",
+  "telefono": "555-5678",
+  "contacto": "Ana López"
+}
+
+### Eliminar proveedor (DELETE)
+DELETE http://localhost:8080/api/v1/provedores/1

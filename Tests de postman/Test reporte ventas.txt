@@ -1,0 +1,16 @@
+### Crear reporte de venta (POST)
+POST http://localhost:8080/api/v1/reporte-ventas
+Content-Type: application/json
+
+{
+  "cantidadVendida": 20,
+  "fechaVenta": "2024-05-21",
+  "metodoPago": "tarjeta",
+  "precioUnitario": 1500,
+  "rutCliente": "12345678-9",
+  "totalVenta": 30000.0,
+  "producto": { "id_producto": 1 }
+}
+
+### Obtener todos los reportes de venta (GET)
+GET http://localhost:8080/api/v1/reporte-ventas

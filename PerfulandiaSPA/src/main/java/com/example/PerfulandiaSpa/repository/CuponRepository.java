@@ -13,9 +13,14 @@ public class CuponRepository {
     private final List<Cupon> cupones = new ArrayList<>();
 
     public Cupon save(Cupon cupon) {
-        deleteById(cupon.getId());
-        cupones.add(cupon);
-        return cupon;
+        Cupon cup = new Cupon();
+        cup.setId(cupon.getId());
+        cup.setCodigo_cupon(cupon.getCodigo_cupon());
+        cup.setDescuento(cupon.getDescuento());
+        cup.setActivo(cupon.isActivo());
+
+        cupones.add(cup);
+        return cup;
     }
 
     public List<Cupon> findAll() {

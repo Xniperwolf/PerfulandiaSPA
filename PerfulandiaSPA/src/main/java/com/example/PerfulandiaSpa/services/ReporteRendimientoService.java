@@ -25,7 +25,7 @@ public class ReporteRendimientoService {
         return reporteRendimientoRepositoryJpa.findAll();
     }
 
-    public void deleteReporteRendimiento(String id) {
+    public void deleteReporteRendimiento(Long id) {
         reporteRendimientoRepositoryJpa.deleteById(id);
     }
 
