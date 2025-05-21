@@ -21,8 +21,8 @@ public class CarritoController {
     @PostMapping("/{usuarioId}/agregar")
     public ResponseEntity<Carrito> agregarItem(@PathVariable Long usuarioId, @RequestBody ItemCarrito item) {
         Carrito carrito = carritoService.obtenerCarrito(usuarioId).orElse(new Carrito());
-        // Suponiendo que tienes un método para obtener Usuario por ID
         Usuario usuario = usuarioService.getUsuarioById(usuarioId);
+        carrito.setUsuario(usuario);
         Carrito updatedCarrito = carritoService.agregarItem(carrito, item, usuario);
         return ResponseEntity.ok(updatedCarrito);
     }
