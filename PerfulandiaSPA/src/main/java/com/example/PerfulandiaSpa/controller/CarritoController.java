@@ -2,7 +2,10 @@ package com.example.PerfulandiaSpa.controller;
 
 import com.example.PerfulandiaSpa.model.Carrito;
 import com.example.PerfulandiaSpa.model.ItemCarrito;
+import com.example.PerfulandiaSpa.model.Usuario;
 import com.example.PerfulandiaSpa.services.CarritoService;
+import com.example.PerfulandiaSpa.services.UsuarioService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,11 +16,14 @@ public class CarritoController {
 
     @Autowired
     private CarritoService carritoService;
+    private UsuarioService usuarioService;
 
     @PostMapping("/{usuarioId}/agregar")
     public ResponseEntity<Carrito> agregarItem(@PathVariable Long usuarioId, @RequestBody ItemCarrito item) {
         Carrito carrito = carritoService.obtenerCarrito(usuarioId).orElse(new Carrito());
-        Carrito updatedCarrito = carritoService.agregarItem(carrito, item);
+        // Suponiendo que tienes un método para obtener Usuario por ID
+        Usuario usuario = usuarioService.getUsuarioById(usuarioId);
+        Carrito updatedCarrito = carritoService.agregarItem(carrito, item, usuario);
         return ResponseEntity.ok(updatedCarrito);
     }
 

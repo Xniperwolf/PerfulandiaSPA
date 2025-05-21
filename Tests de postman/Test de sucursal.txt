@@ -1,0 +1,30 @@
+1. Crear sucursal (POST)
+Método: POST
+URL: http://localhost:8080/api/v1/sucursales
+Body (JSON):
+--la id se genera sola
+{
+  "nombre": "Sucursal Centro",
+  "direccion": "Av. Principal 123"
+}
+
+2. Obtener todas las sucursales (GET)
+Método: GET
+URL: http://localhost:8080/api/v1/sucursales
+
+3. Obtener sucursal por ID (GET)
+Método: GET
+URL: http://localhost:8080/api/v1/sucursales/1
+
+4. Actualizar sucursal (PUT)
+Método: PUT
+URL: http://localhost:8080/api/v1/sucursales/1
+Body (JSON):
+{
+  "nombre": "Sucursal Centro Actualizada",
+  "direccion": "Av. Nueva 456"
+}
+
+5. Eliminar sucursal (DELETE)
+Método: DELETE
+URL: http://localhost:8080/api/v1/sucursales/1

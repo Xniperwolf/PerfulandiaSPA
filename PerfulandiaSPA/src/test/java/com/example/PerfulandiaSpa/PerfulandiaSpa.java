@@ -8,6 +8,7 @@ class PerfulandiaSpa {
 
 	@Test
 	void contextLoads() {
+		
 	}
 
 }
